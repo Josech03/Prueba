@@ -71,11 +71,17 @@ router.post('/',(req,res)=>{
 		res.redirect("/");
 		}
 		let transporter = nodemailer.createTransport({
-				host: "smtp.hostinger.com", 
-            	port: 465,  
-    			auth: {
+					host: "smtp-mail.outlook.com",
+    				secureConnection: false, 
+    				port: 587, 
+    				auth: {
        				 user: process.env.CORREO,
        				 pass: process.env.CLAVE
+
+    				},
+    					tls: {
+      					ciphers:'SSLv3'
+   					}
 			});
 				const Message = `
 					<p>Programacion 2 Sec-3</p>
