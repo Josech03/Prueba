@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
+const geoip = require('geoip-lite');
 const path = require('path');
 
 
@@ -14,7 +15,7 @@ if (err){
 }
 })
 
-const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15));";
+const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15), pais VARCHAR(20));";
 require('dotenv').config();
 
 db_run.run(crear,err=>{
@@ -55,7 +56,10 @@ router.post('/',(req,res)=>{
  	 } else {
 	ip = req.connection.remoteAddress;
   	}
-	const sql="INSERT INTO contacts(email, nombre, comentario, fecha,ip) VALUES (?,?,?,?,?)";
+  	var geo = geoip.lookup(ip);
+	console.log(geo);
+	var pais = geo.country;
+	const sql="INSERT INTO contacts(email, nombre, comentario, fecha, ip, pais) VALUES (?,?,?,?,?,?)";
 	const nuevos_mensajes=[req.body.email, req.body.nombre, req.body.comentario,fech,ip];
 	db_run.run(sql, nuevos_mensajes, err =>{
 	if (err){
