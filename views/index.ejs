@@ -65,6 +65,7 @@
         <input type="hidden"  value="<%= ct.fecha%>">
         <input type="hidden"  value="<%= ct.ip%>">
         <div class="g-recaptcha" data-sitekey="<%= CLAVE_RECAPTCHA%>"></div>
+        <script type="text/javascript"> console.log(process.env.CLAVE_RECAPTCHA)</script>
 		<input class="botons" type="submit" name="Enviar" value="Enviar">
 	</form>
    </div>

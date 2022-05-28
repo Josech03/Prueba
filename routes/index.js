@@ -14,12 +14,6 @@ if (err){
 }
 })
 
-router.get('/', (req, res, next) => {
-  res.render('index.ejs',{data:{},
-  CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA});
-});
-
-
 const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15));";
 
 
