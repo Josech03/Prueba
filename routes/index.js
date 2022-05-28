@@ -3,6 +3,7 @@ var router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
 const path = require('path');
+require('dotenv').config()
 
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
@@ -65,6 +66,11 @@ router.post('/',(req,res)=>{
 		res.redirect("/");
 		}
 	})
+});
+router.get('/',(req,res) => {
+	res.render('index.ejs',{get:{},
+	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA
+})
 });
 
 
