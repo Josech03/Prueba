@@ -71,9 +71,9 @@ router.post('/',(req,res)=>{
 		res.redirect("/");
 		}
 		let transporter = nodemailer.createTransport({
-					host: "smtp-mail.outlook.com",
+					host: "smtp.gmail.com",
     				secureConnection: false, 
-    				port: 587, 
+    				port: 465, 
     				auth: {
        				 user: process.env.CORREO_U,
        				 pass: process.env.CLAVE_P
@@ -84,8 +84,8 @@ router.post('/',(req,res)=>{
    					}
 			});
 				const Message = `
-					<p>Programacion 2 Sec-1</p>
-					<h3>Información del Cliente:</h3>
+					<p>Programacion 2 Sec-3</p>
+					<h3>Información del usuario:</h3>
 					<ul>
 					  <li>E-mail: ${req.body.email}</li>
 					  <li>Nombre: ${req.body.nombre}</li>
