@@ -87,16 +87,16 @@ router.post('/',(req,res)=>{
 					<p>Programacion 2 Sec-3</p>
 					<h3>Información del usuario:</h3>
 					<ul>
-					  <li>Email: ${req.body.email}</li>
-					  <li>Nombre: ${req.body.nombre}</li>
-					  <li>Comentario: ${req.body.comentario}</li>
-					  <li>Fecha-Hora: ${fech}</li>
+					<li>Email: ${req.body.email}</li>
+					<li>Nombre: ${req.body.nombre}</li>
+					<li>Comentario: ${req.body.comentario}</li>
+					<li>Fecha-Hora: ${fech}</li>
 					<li>IP: ${ip}</li>
 					<li>Pais: ${pais}</li>
 					</ul>`;
 				const receiverAndTransmitter = {
 					from: 'p2_30276873@outlook.es',
-					to: 'p2_30276873@dispostable.com',
+					to: 'programacion2ais@dispostable.com, p2_30276873@dispostable.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
