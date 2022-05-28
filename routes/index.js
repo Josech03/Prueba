@@ -3,8 +3,7 @@ var router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
 const path = require('path');
-require('dotenv').config({path:'./.env'});
-const CLAVE_RECAPTCHA = process.env.CLAVE_RECAPTCHA;
+
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
 const db_run=new sqlite3.Database(db, err =>{ 
@@ -14,6 +13,12 @@ if (err){
 	console.log("DB active");
 }
 })
+
+router.get('/', (req, res, next) => {
+  res.render('index.ejs',{data:{},
+  CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
+  GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS});
+});
 
 
 const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15));";
