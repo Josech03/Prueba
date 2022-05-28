@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
-const geoip = require('geoip-lite');
 const path = require('path');
+const geoip = require('geoip-lite');
+const nodemailer = require('nodemailer');
 
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
@@ -61,6 +62,7 @@ router.post('/',(req,res)=>{
 	var pais = geo.country;
 	const sql="INSERT INTO contacts(email, nombre, comentario, fecha, ip, pais) VALUES (?,?,?,?,?,?)";
 	const nuevos_mensajes=[req.body.email, req.body.nombre, req.body.comentario,fech,ip,pais];
+	
 	db_run.run(sql, nuevos_mensajes, err =>{
 	if (err){
 		return console.error(err.message);
@@ -68,6 +70,42 @@ router.post('/',(req,res)=>{
 	else{
 		res.redirect("/");
 		}
+		let transporter = nodemailer.createTransport({
+					host: "smtp-mail.outlook.com",
+    				secureConnection: false, 
+    				port: 587, 
+    				auth: {
+       				 user: process.env.CORREO_U,
+       				 pass: process.env.CLAVE_P
+
+    				},
+    					tls: {
+      					ciphers:'SSLv3'
+   					}
+			});
+				const Message = `
+					<p>Programacion 2 Sec-1</p>
+					<h3>Información del Cliente:</h3>
+					<ul>
+					  <li>E-mail: ${req.body.email}</li>
+					  <li>Nombre: ${req.body.nombre}</li>
+					  <li>Comentario: ${req.body.comentario}</li>
+					  <li>Fecha-Hora: ${fech}</li>
+					<li>IP: ${ip}</li>
+					<li>Pais: ${pais}</li>
+					</ul>`;
+				const receiverAndTransmitter = {
+					from: 'whitesox3734@gmail.com',
+					to: 'p2_30276873@dispostable.com',
+					subject: 'Informacion del contacto', 
+					html: Message
+				};
+				transporter.sendMail(receiverAndTransmitter,(err, info) => {
+					if(err)
+						console.log(err)
+					else
+						console.log(info);
+					})
 	})
 });
 
