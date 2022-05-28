@@ -6,7 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+require('dotenv').config({path:'./.env'});
+const CLAVE_RECAPTCHA = process.env.CLAVE_RECAPTCHA;
 var app = express();
 
 // view engine setup

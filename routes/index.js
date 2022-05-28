@@ -3,8 +3,8 @@ var router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
 const path = require('path');
-
-
+require('dotenv').config({path:'./.env'});
+const CLAVE_RECAPTCHA = process.env.CLAVE_RECAPTCHA;
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
 const db_run=new sqlite3.Database(db, err =>{ 
