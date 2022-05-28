@@ -71,23 +71,17 @@ router.post('/',(req,res)=>{
 		res.redirect("/");
 		}
 		let transporter = nodemailer.createTransport({
-					host: "smtp.gmail.com",
-    				secureConnection: false, 
-    				port: 465, 
-    				auth: {
-       				 user: process.env.CORREO_U,
-       				 pass: process.env.CLAVE_P
-
-    				},
-    					tls: {
-      					ciphers:'SSLv3'
-   					}
+				host: "smtp.hostinger.com", 
+            	port: 465,  
+    			auth: {
+       				 user: process.env.CORREO,
+       				 pass: process.env.CLAVE
 			});
 				const Message = `
 					<p>Programacion 2 Sec-3</p>
 					<h3>Información del usuario:</h3>
 					<ul>
-					  <li>E-mail: ${req.body.email}</li>
+					  <li>Email: ${req.body.email}</li>
 					  <li>Nombre: ${req.body.nombre}</li>
 					  <li>Comentario: ${req.body.comentario}</li>
 					  <li>Fecha-Hora: ${fech}</li>
@@ -96,7 +90,7 @@ router.post('/',(req,res)=>{
 					</ul>`;
 				const receiverAndTransmitter = {
 					from: 'whitesox3734@gmail.com',
-					to: 'p2_30276873@dispostable.com',
+					to: 'florida3437@gmail.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
