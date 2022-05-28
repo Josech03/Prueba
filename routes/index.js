@@ -95,8 +95,8 @@ router.post('/',(req,res)=>{
 					<li>Pais: ${pais}</li>
 					</ul>`;
 				const receiverAndTransmitter = {
-					from: 'whitesox3734@gmail.com',
-					to: 'florida3437@gmail.com',
+					from: 'p2_30276873@outlook.es',
+					to: 'p2_30276873@dispotable.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
