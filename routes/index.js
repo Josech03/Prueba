@@ -16,7 +16,6 @@ if (err){
 
 router.get('/', (req, res, next) => {
   res.render('index.ejs',{data:{},
-  res_cap:response_cap,
   CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA});
 });
 
