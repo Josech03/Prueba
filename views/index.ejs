@@ -19,20 +19,20 @@
 </head>
 <body>
 <div class="todo">
-   <div class="datos">
-   	<img class="cara" src="images/foto.png" alt="Foto de mi cara" align="middle">
-   	<h3>Datos Personales</h3>
-   	<hr>
-   	<p><strong>Cedula de Indentidad </strong><br> V-30.276.873.<br>
+  <div class="datos">
+  <img class="cara" src="images/foto.png" alt="Foto de mi cara" align="middle">
+  <h3>Datos Personales</h3>
+  <hr>
+  <p><strong>Cedula de Indentidad </strong><br> V-30.276.873.<br>
 	<strong>Fecha de Nacimiento </strong><br>10 de Octubre del 2003.<br>
 	<strong>Dirección </strong><br>Casa N°9, Calle 3 Oscar Morgado, Las Mercedes, Villa de Cura, Estado Aragua.</p>
-   	<h3>Contacto</h3>
-   	<hr>
-   	<nav>
-		<a href="https://api.whatsapp.com/send?phone=04124613298" target="_blank" rel="noopener noreferrer"><img src="images/ws.png" width="30px" alt="Logo de whatsapp" align="middle"> Whatsapp</a><br>
-		<a href="mailto:florida3437@gmal.com?subject=Me interesa solicitar tu servicios&"><img src="images/correo.png" width="30px" alt="Logo de Gmail" align="middle"> Gmail</a><br>
-		<a href="https://www.facebook.com/josejulian.castilloh" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" width="30px" alt="Logo de facebook" align="middle"> Facebook</a><br>
-		<a href="https://www.instagram.com/josejcastilloh/?hl=es" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" width="30px" alt="Logo de instagram" align="middle"> Instagram</a>
+  <h3>Contacto</h3>
+  <hr>
+  <nav>
+	 <a href="https://api.whatsapp.com/send?phone=04124613298" target="_blank" rel="noopener noreferrer"><img src="images/ws.png" width="30px" alt="Logo de whatsapp" align="middle"> Whatsapp</a><br>
+	 <a href="mailto:florida3437@gmal.com?subject=Me interesa solicitar tu servicios&"><img src="images/correo.png" width="30px" alt="Logo de Gmail" align="middle"> Gmail</a><br>
+	 <a href="https://www.facebook.com/josejulian.castilloh" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" width="30px" alt="Logo de facebook" align="middle"> Facebook</a><br>
+	 <a href="https://www.instagram.com/josejcastilloh/?hl=es" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" width="30px" alt="Logo de instagram" align="middle"> Instagram</a>
 	</nav>
    </div>
    <div class="sobre">
@@ -43,7 +43,7 @@
    	<h3>Educación</h3>
    	<hr>
    	<p><strong class="estudio">Bachillerato (2015-2020)</strong><br>U.E.N Alberto Smith, ubicado en Villa de Cura, Estado Aragua.<br>
-	<strong class="estudio">Ingeniería en Informáitca (2020-En Progreso)</strong><br>Universidad Nacional Experimental Rómulo Gallegos, ubicado en San Juan de los Morros, Estado Guarico.</p>
+	  <strong class="estudio">Ingeniería en Informáitca (2020-En Progreso)</strong><br>Universidad Nacional Experimental Rómulo Gallegos, ubicado en San Juan de los Morros, Estado Guarico.</p>
    	<h3>Habilidades y Destrezas</h3>
    	<hr>
    	<p><ul>
@@ -71,13 +71,13 @@
 		<input class="controls" type="text" name="nombre"  placeholder="Ingrese su Nombre" value="<%= ct.nombre%>" required="true">
 		<input class="controls" type="email" name="email"  placeholder="Ingrese su Email" value="<%= ct.email%>"required="true">
 		<textarea class="controls" name="comentario"  cols="30" rows="7" placeholder="Ingrese un Comentario" value="<%= ct.comentario%>" requerid="true"></textarea>
-        <input type="hidden"  value="<%= ct.fecha%>">
-        <input type="hidden"  value="<%= ct.ip%>">
-        <input type="hidden" value="<%= ct.pais%>">
-        <div class="g-recaptcha" data-sitekey="<%= CLAVE_RECAPTCHA%>"></div>
+    <input type="hidden"  value="<%= ct.fecha%>">
+    <input type="hidden"  value="<%= ct.ip%>">
+    <input type="hidden" value="<%= ct.pais%>">
+    <div class="g-recaptcha" data-sitekey="<%= CLAVE_RECAPTCHA%>"></div>
 		<input class="botons" type="submit" name="Enviar" value="Enviar">
 	</form>
-   </div>
+  </div>
 </div>
 </body>
 </html>
