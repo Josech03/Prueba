@@ -5,49 +5,49 @@ body{
     font: 17px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 .todo{
-	  background-color: white;
-	  width: 957px;
-	  height: 1368px;
+	background-color: white;
+	width: 957px;
+	height: 1368px;
 }
 
 .datos{
-	  background-color: #f2f2f2;
-	  float: left;
+	background-color: #f2f2f2;
+	float: left;
     width: 230px;
-	  height: 1368px;
-	  padding: 10px;
+	height: 1368px;
+	padding: 10px;
 }
 .sobre{
-	  background-color: white;
-	  float:left;
-	  width: 687px;
-	  height:1368px;
-	  padding: 10px;
+ 	background-color: white;
+	float:left;
+	width: 687px;
+	height:1368px;
+	padding: 10px;
 }
 h1{
-	  color: #2374ba;
+	color: #2374ba;
 }
 h3{
-	  color: #2374ba;
-	  font-size: 20px;
+	color: #2374ba;
+	font-size: 20px;
 
 }
 a{
-	  text-decoration:none;
-	  color:#2374ba;
+	text-decoration:none;
+	color:#2374ba;
 }
 img{
-	  padding: 3px;
+	padding: 3px;
 }
 hr{
-	  color: white;
+	color: white;
 }
 .cara{
-	  padding: 25px;
-	  float: center;
-	  width: 175px;
-	  background-image: linear-gradient(gray,#f2f2f2,#f2f2f2);
-	  border-radius: 50%;
+	padding: 25px;
+	float: center;
+	width: 175px;
+	background-image: linear-gradient(gray,#f2f2f2,#f2f2f2);
+	border-radius: 50%;
 }
 .formulario{
     width: 400px;
