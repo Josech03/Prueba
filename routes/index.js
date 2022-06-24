@@ -63,10 +63,16 @@ router.get("/login",(req,res)=>{
 	res.render("login")
 });
 
-router.post("/login", passport.authenticate('local'{
+router.post("/login", passport.isAuthenticated('local'{
 	successRedirect: "/contactos"
 	failureRedirect:"/login"
 }));
+
+router.get('/contactos', (req,res,next)=>{
+	if (req.isAuthenticated()) return next()
+
+	res.redirect("/login")
+})
 
 router.get('/contactos',(req,res)=>{
 	const sql="SELECT * FROM contacts;";
