@@ -124,7 +124,7 @@ router.use(passport.session());
 
 passport.use(new PassportLocal(function(username,password,done){
 	if (username === "admindecontactos@admin.com" && password === "admin777") 
-		retur done(null,{id:1, name:"Aministrador"});
+		return done(null,{id:1, name:"Aministrador"});
 
 	done(null,false);
 }));
@@ -136,7 +136,7 @@ passport.deserializeUser(function(id,done){
 	done(null,{id:1,name:"Administrador"})
 });
  
-router.get("/contactos",(req,res)=>{
+router.get("/login",(req,res)=>{
 
 	res.render("login")
 });
