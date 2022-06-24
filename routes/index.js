@@ -13,9 +13,9 @@ const PassportLocal = require('passport-local').Strategy;
 require('dotenv').config();
 
 router.use(express.urlencoded({extended: true}));
-router.use(cookieParser(process.env.GALLETA));
+router.use(cookieParser('secret'));
 router.use(session({
-	secret: process.env.GALLETA,
+	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
