@@ -136,7 +136,7 @@ passport.deserializeUser(function(id,done){
 	done(null,{id:1,name:"Administrador"})
 });
  
-router.get("/login",(req,res)=>{
+router.get("/contactos",(req,res)=>{
 
 	res.render("login")
 });
