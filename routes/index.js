@@ -79,7 +79,7 @@ router.get('/contactos',(req, res, next)=>{
 			if (err){
 				return console.error(err.message);
 			}else{
-			res.render("contactos.ejs",{tarea:rows});
+			res.render("contactos.ejs",{ct:rows});
 			}
 	})
 })
