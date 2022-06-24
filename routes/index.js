@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sqlite3=require('sqlite3').verbose();
 const http=require('http');
 const path = require('path');
@@ -9,6 +9,36 @@ const passport = require('passport');
 const cookieParser= require('cookie-parser');
 const session = require('express-session');
 const PassportLocal = require('passport-local').Strategy;
+
+require('dotenv').config();
+
+router.use(express.urlencoded({extended: true}));
+router.use(cookieParser(process.env.GALLETA));
+router.use(session({
+	secret: process.env.GALLETA,
+	resave: true,
+	saveUninitialized: true
+}));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use( new PassportLocal(function(username, password, done){
+
+	if(username === process.env.USUARIO_EMAIL && password === process.env.USUARIO_PASSWORD)
+		return done(null,{id: 1, name: "SuperUsuario"});
+
+	done(null, false)
+}))
+
+passport.serializeUser(function(user, done){
+	done(null, user.id)
+})
+
+passport.deserializeUser(function(user, done){
+	done(null,{id: 1, name: "SuperUsuario"});
+})
+
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
 const db_run=new sqlite3.Database(db, err =>{ 
@@ -20,7 +50,7 @@ if (err){
 })
 
 const crear="CREATE TABLE IF NOT EXISTS contacts(email VARCHAR(16),nombre VARCHAR(16), comentario TEXT,fecha DATATIME,ip VARCHAR(15), pais VARCHAR(20));";
-require('dotenv').config();
+
 
 db_run.run(crear,err=>{
 	if (err){
@@ -29,6 +59,18 @@ db_run.run(crear,err=>{
 	console.log("Tb active");
 }
 })
+
+router.get('/login',(req,res)=>{
+	res.render('login.ejs')
+});
+
+router.post('/login', passport.authenticate('local',{
+	successRedirect: "/contactos",
+	failureRedirect: "/login"
+}));
+
+
+
 router.get('/',(req,res)=>{
 	res.render('index.ejs',{ct:{},
 	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
@@ -111,47 +153,6 @@ router.post('/',(req,res)=>{
 					})
 	})
 });
-router.use(express.urlencoded({ extended: true}));
-
-router.use(cookieParser('mi secreto'));
-router.use(session({
-	secret: 'mi secreto'
-	resave: true,
-	saveUninitialized: true
-}));
-router.use(passport.initialize());
-router.use(passport.session());
-
-passport.use(new PassportLocal(function(username,password,done){
-	if (username === "admin777" && password === "admin990") 
-		return done(null,{id:1, name:"Aministrador"});
-
-	done(null,false);
-}));
-
-passport.serializeUser(function(user,done)){
-	done(null,user.id);
-}
-passport.deserializeUser(function(id,done){
-	done(null,{id:1,name:"Administrador"})
-});
- 
-router.get("/login",(req,res)=>{
-
-	res.render("login")
-});
-
-router.post("/login", passport.isauthenticate('local'{
-	successRedirect: "/contactos"
-	failureRedirect:"/login"
-}));
-
-router.get('/contactos', (req,res,next)=>{
-	if (req.isAuthenticate()) return next()
-
-	res.redirect("/login")
-});
-
 
 
 module.exports = router;
