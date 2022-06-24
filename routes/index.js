@@ -5,7 +5,10 @@ const http=require('http');
 const path = require('path');
 const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
-
+const passport = require('passport');
+const cookieParser= require('cookie-parser');
+const session = require('express-session');
+const PassportLocal = require('passport-local').Strategy;
 
 const db=path.join(__dirname,"basededatos","sqlitedb.db");
 const db_run=new sqlite3.Database(db, err =>{ 
@@ -31,6 +34,39 @@ router.get('/',(req,res)=>{
 	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
   	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
 });
+
+router.use(cookieParser('mi secreto'))
+router.use(session({
+	secret: 'mi secreto'
+	resave: true,
+	saveUninitialized: true
+}));
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use(new PassportLocal(function(username,password,done){
+	if (username === "admindecontactos@admin.com" && password === "admin777") 
+		retur done(null,{id:1, name:"Aministrador"});
+
+	done(null,false);
+}));
+
+passport.serializeUser(function(user,done)){
+	done(null,user.id);
+}
+passport.deserializeUser(function(id,done){
+	done(null,{id:1,name:"Aministrador"})
+});
+ 
+router.get("/login",(req,res)=>{
+
+	res.render("login")
+});
+
+router.post("/login", passport.authenticate('local'{
+	successRedirect: "/contactos"
+	failureRedirect:"/login"
+}));
 
 router.get('/contactos',(req,res)=>{
 	const sql="SELECT * FROM contacts;";
@@ -75,8 +111,8 @@ router.post('/',(req,res)=>{
     				secureConnection: false, 
     				port: 587, 
     				auth: {
-       				 user: process.env.CORREO,
-       				 pass: process.env.CLAVE
+       				user: process.env.CORREO,
+       				pass: process.env.CLAVE
 
     				},
     					tls: {
@@ -108,6 +144,7 @@ router.post('/',(req,res)=>{
 					})
 	})
 });
+
 
 
 module.exports = router;
