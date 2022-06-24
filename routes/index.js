@@ -35,45 +35,6 @@ router.get('/',(req,res)=>{
   	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
 });
 
-app.use(cookieParser('mi secreto'))
-app.use(session({
-	secret: 'mi secreto'
-	resave: true,
-	saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new PassportLocal(function(username,password,done){
-	if (username === "admindecontactos@admin.com" && password === "admin777") 
-		retur done(null,{id:1, name:"Aministrador"});
-
-	done(null,false);
-}));
-
-passport.serializeUser(function(user,done)){
-	done(null,user.id);
-}
-passport.deserializeUser(function(id,done){
-	done(null,{id:1,name:"Aministrador"})
-});
- 
-app.get("/login",(req,res)=>{
-
-	res.render("login")
-});
-
-app.post("/login", passport.isAuthenticated('local'{
-	successRedirect: "/contactos"
-	failureRedirect:"/login"
-}));
-
-app.get('/contactos', (req,res,next)=>{
-	if (req.isAuthenticated()) return next()
-
-	res.redirect("/login")
-})
-
 router.get('/contactos',(req,res)=>{
 	const sql="SELECT * FROM contacts;";
 	db_run.all(sql, [],(err, rows)=>{
@@ -149,6 +110,46 @@ router.post('/',(req,res)=>{
 						console.log(info);
 					})
 	})
+});
+router.use(express.urlencoded({ extended: true}));
+
+router.use(cookieParser('mi secreto'));
+router.use(session({
+	secret: 'mi secreto'
+	resave: true,
+	saveUninitialized: true
+}));
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use(new PassportLocal(function(username,password,done){
+	if (username === "admindecontactos@admin.com" && password === "admin777") 
+		retur done(null,{id:1, name:"Aministrador"});
+
+	done(null,false);
+}));
+
+passport.serializeUser(function(user,done)){
+	done(null,user.id);
+}
+passport.deserializeUser(function(id,done){
+	done(null,{id:1,name:"Administrador"})
+});
+ 
+router.get("/login",(req,res)=>{
+
+	res.render("login")
+});
+
+router.post("/login", passport.isAuthenticated('local'{
+	successRedirect: "/contactos"
+	failureRedirect:"/login"
+}));
+
+router.get('/contactos', (req,res,next)=>{
+	if (req.isAuthenticated()) return next()
+
+	res.redirect("/login")
 });
 
 
