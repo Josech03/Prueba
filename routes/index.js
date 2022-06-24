@@ -75,7 +75,7 @@ router.get('/contactos',(req, res, next)=>{
 	res.redirect("/login")
 },(req,res)=>{
 	const sql="SELECT * FROM contactos;";
-	bd.all(sql, [],(err, rows)=>{
+	db_run.all(sql, [],(err, rows)=>{
 			if (err){
 				return console.error(err.message);
 			}else{
