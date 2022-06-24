@@ -13,9 +13,9 @@ const PassportLocal = require('passport-local').Strategy;
 require('dotenv').config();
 
 router.use(express.urlencoded({extended: true}));
-router.use(cookieParser('secret'));
+router.use(cookieParser(process.env.GALLETA));
 router.use(session({
-	secret: 'secret',
+	secret: process.env.GALLETA,
 	resave: true,
 	saveUninitialized: true
 }));
@@ -25,7 +25,7 @@ router.use(passport.session());
 
 passport.use( new PassportLocal(function(username, password, done){
 
-	if(username === 'superusuario@admin.com' && password === 'superusuario990')
+	if(username === process.env.USUARIO_EMAIL && password === process.env.USUARIO_PASSWORD)
 		return done(null,{id: 1, name: "SuperUsuario"});
 
 	done(null, false)
