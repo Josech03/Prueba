@@ -14,7 +14,7 @@ require('dotenv').config();
 
 router.use(express.urlencoded({extended: true}));
 router.use(cookieParser(process.env.GALLETA));
-router.use(cookiesession({
+router.use(session({
 	secret: process.env.GALLETA,
 	resave: true,
 	saveUninitialized: true
