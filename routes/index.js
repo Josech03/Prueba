@@ -35,14 +35,14 @@ router.get('/',(req,res)=>{
   	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
 });
 
-router.use(cookieParser('mi secreto'))
-router.use(session({
+app.use(cookieParser('mi secreto'))
+app.use(session({
 	secret: 'mi secreto'
 	resave: true,
 	saveUninitialized: true
 }));
-router.use(passport.initialize());
-router.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(new PassportLocal(function(username,password,done){
 	if (username === "admindecontactos@admin.com" && password === "admin777") 
@@ -58,17 +58,17 @@ passport.deserializeUser(function(id,done){
 	done(null,{id:1,name:"Aministrador"})
 });
  
-router.get("/login",(req,res)=>{
+app.get("/login",(req,res)=>{
 
 	res.render("login")
 });
 
-router.post("/login", passport.isAuthenticated('local'{
+app.post("/login", passport.isAuthenticated('local'{
 	successRedirect: "/contactos"
 	failureRedirect:"/login"
 }));
 
-router.get('/contactos', (req,res,next)=>{
+app.get('/contactos', (req,res,next)=>{
 	if (req.isAuthenticated()) return next()
 
 	res.redirect("/login")
