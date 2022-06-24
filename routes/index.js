@@ -69,14 +69,6 @@ router.post('/login', passport.authenticate('local',{
 	failureRedirect: "/login"
 }));
 
-
-
-router.get('/',(req,res)=>{
-	res.render('index.ejs',{ct:{},
-	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
-  	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
-});
-
 router.get('/contactos',(req, res, next)=>{
 	if(req.isAuthenticated()) return next();
 
@@ -158,5 +150,10 @@ router.post('/',(req,res)=>{
 	})
 });
 
+router.get('/',(req,res)=>{
+	res.render('index.ejs',{ct:{},
+	CLAVE_RECAPTCHA:process.env.CLAVE_RECAPTCHA,
+  	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
+});
 
 module.exports = router;
