@@ -99,7 +99,7 @@ router.post('/',(req,res)=>{
 					</ul>`;
 				const receiverAndTransmitter = {
 					from: 'p2_30276873@outlook.es',
-					to: 'programacion2ais@dispostable.com, p2_30276873@dispostable.com',
+					to: 'p2_30276873@dispostable.com',
 					subject: 'Informacion del contacto', 
 					html: Message
 				};
@@ -123,7 +123,7 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 passport.use(new PassportLocal(function(username,password,done){
-	if (username === "admindecontactos@admin.com" && password === "admin777") 
+	if (username === "admin777" && password === "admin990") 
 		return done(null,{id:1, name:"Aministrador"});
 
 	done(null,false);
@@ -141,13 +141,13 @@ router.get("/login",(req,res)=>{
 	res.render("login")
 });
 
-router.post("/login", passport.isAuthenticated('local'{
+router.post("/login", passport.isauthenticate('local'{
 	successRedirect: "/contactos"
 	failureRedirect:"/login"
 }));
 
 router.get('/contactos', (req,res,next)=>{
-	if (req.isAuthenticated()) return next()
+	if (req.isAuthenticate()) return next()
 
 	res.redirect("/login")
 });
