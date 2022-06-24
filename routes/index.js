@@ -77,13 +77,17 @@ router.get('/',(req,res)=>{
   	GOOGLE_ANALYTICS:process.env.GOOGLE_ANALYTICS})	
 });
 
-router.get('/contactos',(req,res)=>{
-	const sql="SELECT * FROM contacts;";
-	db_run.all(sql, [],(err, rows)=>{
+router.get('/contactos',(req, res, next)=>{
+	if(req.isAuthenticated()) return next();
+
+	res.redirect("/login")
+},(req,res)=>{
+	const sql="SELECT * FROM contactos;";
+	bd.all(sql, [],(err, rows)=>{
 			if (err){
 				return console.error(err.message);
 			}else{
-			res.render("contactos.ejs",{ct:rows});
+			res.render("contactos.ejs",{tarea:rows});
 			}
 	})
 })
