@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport')
+const emails = 'whitesox3734@gmail.com'
 
 passport.use(new GoogleStrategy({
     clientID: '904767707900-9vgh5ltf8gbhfpfiqhtcueu5nfpd7i9u.apps.googleusercontent.com',
@@ -7,13 +8,9 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://app-p2.herokuapp.com/google/callback"
   },
  function(accessToken, refreshToken, profile, done){
-    const response = emails.includes(profile.emails[0].value);
-    if(response){
-        done(null, profile);
-    } else {
-        done(null, false);
-    }
-}));
+ 	return done(null, profile);
+ 	}
+ ));
 
 
 

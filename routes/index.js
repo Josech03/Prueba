@@ -161,16 +161,11 @@ router.post('/',(req,res)=>{
 	})
 });
 
-router.get('/logout', function(req, res, next) {
-	req.session = null;
-	cookie = req.cookies;
-	res.clearCookie("connect.sid");
-	res.redirect('/');
-	req.logout(function(err) {
-	  if (err) { return next(err); }
-	  res.redirect('/');
-	});
-  });
+router.get('/logout', (req,res)=>{
+	req.session = null
+	req.logout();
+	res.direct('/')
+});
 
 
 router.get('/',(req,res)=>{
