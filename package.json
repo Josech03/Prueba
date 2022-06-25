@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@types/passport-google-oauth20": "^2.0.11",
     "cookie-parser": "^1.4.6",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
