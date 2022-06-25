@@ -9,6 +9,7 @@ const passport = require('passport');
 const cookieParser= require('cookie-parser');
 const session = require('express-session');
 const PassportLocal = require('passport-local').Strategy;
+require('../javascripts/googleAuth.js');
 
 require('dotenv').config();
 
@@ -68,6 +69,16 @@ router.post('/login', passport.authenticate('local',{
 	successRedirect: "/contactos",
 	failureRedirect: "/login"
 }));
+
+router.get('/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+
+    res.redirect('/contactos');
+ });
 
 router.get('/contactos',(req, res, next)=>{
 	if(req.isAuthenticated()) return next();
@@ -149,6 +160,18 @@ router.post('/',(req,res)=>{
 					})
 	})
 });
+
+router.get('/logout', function(req, res, next) {
+	req.session = null;
+	cookie = req.cookies;
+	res.clearCookie("connect.sid");
+	res.redirect('/');
+	req.logout(function(err) {
+	  if (err) { return next(err); }
+	  res.redirect('/');
+	});
+  });
+
 
 router.get('/',(req,res)=>{
 	res.render('index.ejs',{ct:{},
