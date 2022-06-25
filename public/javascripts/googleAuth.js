@@ -5,9 +5,14 @@ passport.use(new GoogleStrategy({
     clientSecret: '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',
     callbackURL: "http://app-p2.herokuapp.com/google/callback"
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+ function(accessToken, refreshToken, profile, done){
+    const response = emails.includes(profile.emails[0].value);
+    if(response){
+        done(null, profile);
+    } else {
+        done(null, false);
+    }
+}));
+
+
+
